@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🛡️ Shield AI - Cyberbullying Detection</title>
+</head>
+<body style="font-family: Arial; text-align: center; padding: 50px;">
+    <h2>🛡️ Shield AI: Real-Time Cyberbullying Detection</h2>
+    <form action="/predict" method="post">
+        <textarea name="message" rows="6" cols="60" placeholder="Type your message here..."></textarea><br><br>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if prediction %}
+        <h3>Result: {{ prediction }}</h3>
+        <p>Confidence: {{ confidence }}%</p>
+        <p>Message: "{{ message }}"</p>
+    {% endif %}
+
+    {% if support %}
+        <p style="color: red;"><b>{{ support }}</b></p>
+    {% endif %}
+
+    {% if prediction and prediction == "Cyberbullying 🚫" %}
+    <hr>
+    <h4>📣 Want to report this message anonymously?</h4>
+    <form action="/report" method="post">
+        <input type="hidden" name="reported_message" value="{{ message }}">
+        <textarea name="reason" rows="3" cols="50" placeholder="Why are you reporting this? (optional)"></textarea><br><br>
+        <button type="submit">Report Anonymously</button>
+    </form>
+    {% endif %}
+</body>
+</html>
